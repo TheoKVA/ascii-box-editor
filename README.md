@@ -2,7 +2,7 @@
 
 # ASCII BOX EDITOR
 
-![preview](docs/preview.png)
+![preview](docs/PREVIEW.png)
 
 > Try it: [**theokva.github.io/ascii-box-editor**](https://www.theokva.github.io/ascii-box-editor) 👋
 
