@@ -1,5 +1,3 @@
-> A sleek, minimalist web tool designed for effortless ASCII art creation. Click and drag to design detailed diagrams with boxes, lines of different styles and add text directly in your browser. Embrace simplicity and creativity—anywhere, anytime!
-
 # ASCII BOX EDITOR
 
 ![preview](docs/PREVIEW.png)
