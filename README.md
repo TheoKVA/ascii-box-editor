@@ -4,7 +4,7 @@
 
 ![preview](docs/PREVIEW.png)
 
-> Try it: [**theokva.github.io/ascii-box-editor**](https://www.theokva.github.io/ascii-box-editor) 👋
+> Try it: [**theokva.github.io/ascii-box-editor**](https://theokva.github.io/ascii-box-editor) 👋
 
 ASCII BOX EDITOR is an intuitive and minimalist web application designed to simplify the creation of ASCII art with just a few clicks. This tool leverages the simplicity of ASCII characters, such as box corners and line intersections, to help users effortlessly draw complex intersected ASCII boxes, create lines with customized styles and end-caps, and embed text within their designs.
 
@@ -77,9 +77,9 @@ Whether you're looking to design a complex code comment, make a specific table l
 The tool is designed to be self-explanatory, featuring an easy-to-navigate interface that requires no prior setup. Users can simply access the web app, and start creating ASCII art immediately.
 <br>Developed using Vanilla JavaScript in an object-oriented programming style, the app emphasizes performance and ease of use, ensuring it's accessible to users regardless of their technical background.
 
-To get started with ASCII BOX EDITOR, go to the [url](https://www.theokva.github.io/ascii-box-editor). No installation required—create and export your ASCII designs directly from your browser! 👌
+To get started with ASCII BOX EDITOR, go to the [url](https://theokva.github.io/ascii-box-editor). No installation required—create and export your ASCII designs directly from your browser! 👌
 
-> [**theokva.github.io/ascii-box-editor**](https://www.theokva.github.io/ascii-box-editor)
+> [**theokva.github.io/ascii-box-editor**](https://theokva.github.io/ascii-box-editor)
 
 
 <a name="exemples"></a>
