@@ -1,0 +1,44 @@
+/*
+    === =================== ===
+    --- MY MOBILE FRAMEWORK ---
+    === =================== ===
+
+    A simple css file to handle mobile display.
+    Detect the window width. 
+    Use class '.mobile-only' or '.desktop-only'
+    Import and modify to your need.
+
+    Coded with ♥ by Theo Francart
+*/
+
+
+/* ======== */
+/*  DESKTOP */
+/* ======== */
+
+@media (min-width: 700px) {
+    .mobile-only {
+        display: none;
+    }
+}
+
+
+/* ======= */
+/*  MOBILE */
+/* ======= */
+
+@media (max-width: 700px) {
+    .desktop-only {
+        display: none !important; /* Hide on mobile */
+    }
+    .mobile-flex-row {
+        display: flex;
+        flex-direction: row !important;
+        align-items: stretch;
+    }
+    .mobile-flex-column {
+        display: flex;
+        flex-direction: column !important;
+        align-items: stretch;
+    }
+}

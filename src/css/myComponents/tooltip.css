@@ -1,0 +1,157 @@
+/*
+     ╭─────────╮    
+     │ TOOLTIP │    
+     ╰─────────╯    
+         ╲╱         
+  ╭───────────────╮ 
+
+
+  TOOLTIP CSS
+
+  in HTML:
+  │      ▼ HERE INFO               (optionnal 'bottom')
+  │ <div css-tooltip='Lorem ipsum' css-tooltip-orientation='top' >
+
+
+   .-. 
+  (o.o)  Coded by  
+   |=|   Theo Francart   
+
+  https://www.w3.org/TR/2023/REC-xml-entity-names-20230307/025.html
+   
+   
+*/
+
+:root {
+  --css-tooltip-height: auto;
+  --css-tooltip-width: 130px;
+
+  --css-tooltip-padding: 5px;
+  --css-tooltip-radius: 3px;
+  --css-tooltip-arrow-size: 7px;
+  --css-tooltip-gap-with-elem: 17px;
+  --css-tooltip-animation: 10px;
+
+  --css-tooltip-background-color: #222;
+  --css-tooltip-text-color: #fff;
+}
+
+
+/* ------- */
+/* TOOLTIP */
+/* ------- */
+
+[css-tooltip] {
+  position: relative; /* Ensures tooltip is positioned relative to his parent */
+}
+
+[css-tooltip]::before {
+  position: absolute;
+  width: var(--css-tooltip-width);
+  height: var(--css-tooltip-height);
+  padding: var(--css-tooltip-padding);
+  border-radius: var(--css-tooltip-radius);
+
+  /* Default position (top) */
+  bottom: calc(100% + var(--css-tooltip-gap-with-elem));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+  /* Content */
+  content: attr(css-tooltip);
+  text-align: center;
+  vertical-align: middle;
+  white-space: normal;
+
+  
+  /* Color */
+  background-color: var(--css-tooltip-background-color);
+  color: var(--css-tooltip-text-color);
+}
+
+
+/* ----- */
+/* ARROW */
+/* ----- */
+
+[css-tooltip]::after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: var(--css-tooltip-arrow-size) var(--css-tooltip-arrow-size) 0 var(--css-tooltip-arrow-size);
+  border-color: var(--css-tooltip-background-color) transparent transparent transparent;
+
+  /* Default position (top) */
+  left: 50%;
+  bottom: calc(100% + var(--css-tooltip-gap-with-elem) - var(--css-tooltip-arrow-size));
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+
+
+/* -------- */
+/* POSITION */
+/* -------- */
+
+/* Right orientation */
+[css-tooltip][css-tooltip-orientation='right']::before {
+  top: 50%;
+  bottom: auto;
+  left: calc(100% + var(--css-tooltip-gap-with-elem) - var(--css-tooltip-arrow-size));
+  transform: translateY(-50%);
+}
+[css-tooltip][css-tooltip-orientation='right']::after {
+  border-width: var(--css-tooltip-arrow-size) var(--css-tooltip-arrow-size) var(--css-tooltip-arrow-size) 0;
+  border-color: transparent var(--css-tooltip-background-color) transparent transparent;
+  top: 50%;
+  bottom: auto;
+  left: calc(100% + var(--css-tooltip-gap-with-elem) - 2*var(--css-tooltip-arrow-size));
+  transform: translateY(-50%);
+}
+
+/* Bottom orientation */
+[css-tooltip][css-tooltip-orientation='bottom']::before {
+  top: calc(100% + var(--css-tooltip-gap-with-elem));
+  bottom: auto;
+}
+[css-tooltip][css-tooltip-orientation='bottom']::after {
+  border-width: 0 var(--css-tooltip-arrow-size) var(--css-tooltip-arrow-size) var(--css-tooltip-arrow-size);
+  border-color: transparent transparent var(--css-tooltip-background-color) transparent;
+  top: calc(100% + var(--css-tooltip-gap-with-elem) - var(--css-tooltip-arrow-size));
+  bottom: auto;
+}
+
+
+/* ----------- */
+/* INTERACTION */
+/* ----------- */
+
+/* Hides the element */
+[css-tooltip]::before,
+[css-tooltip]::after {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Shows the element at HOOVER */
+[css-tooltip]:hover::before,
+[css-tooltip]:hover::after {
+  visibility: visible;
+  /* opacity: 1; */
+  animation: showTooltip 1.5s ease-in-out forwards;
+}
+
+
+@keyframes showTooltip {
+  50% { opacity: 0; }
+  55%, 100% { opacity: 1; }
+}
+/* .js-copy-message.show {
+  display: block;
+  animation: showMessage 1.5s ease-in-out forwards;
+} */

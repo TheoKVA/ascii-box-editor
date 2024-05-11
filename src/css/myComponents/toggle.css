@@ -1,0 +1,75 @@
+/* ========== */
+/*   TOGGLE   */
+/* ========== */
+/* 
+    Dans l'HTML on veut:
+
+    <label class="css-toggle">
+        <input type="checkbox">
+        <span class="css-toggle-slider"></span>
+    </label>
+
+    const isChecked = row.querySelector('input[type="checkbox"]').checked;
+*/
+
+:root {
+    --css-toggle-width: 22px;
+    --css-toggle-height: 13px;
+    --css-toggle-padding: 2px;
+    --css-toggle-color-on: #4f7fff;
+    --css-toggle-color-off: #838383;
+    --css-toggle-color-toggle-on: white;
+    --css-toggle-color-toggle-off: #cccccc;
+}
+
+/* Hide default HTML checkbox */
+.css-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The switch - the box around the slider */
+.css-toggle {
+    position: relative;
+    display: inline-block;
+    width: var(--css-toggle-width);
+    height: var(--css-toggle-height);
+}
+
+/* The slider */
+.css-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: var(--css-toggle-color-off);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: calc( var(--css-toggle-height)/2 );
+}
+.css-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: calc( var(--css-toggle-height) - (2 * var(--css-toggle-padding)) );
+    width: calc( var(--css-toggle-height) - (2 * var(--css-toggle-padding)) );
+    left: var(--css-toggle-padding);
+    bottom: var(--css-toggle-padding);
+    background-color: var(--css-toggle-color-toggle-off);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .css-toggle-slider {
+    background-color: var(--css-toggle-color-on);
+}
+input:focus + .css-toggle-slider {
+    box-shadow: 0 0 1px var(--css-toggle-color-on);
+}
+
+input:checked + .css-toggle-slider:before {
+    -webkit-transform: translateX( calc( var(--css-toggle-width) - var(--css-toggle-height)) );
+    -ms-transform: translateX( calc( var(--css-toggle-width) - var(--css-toggle-height)) );
+    transform: translateX( calc( var(--css-toggle-width) - var(--css-toggle-height)) );
+    background-color: var(--css-toggle-color-toggle-on);
+}

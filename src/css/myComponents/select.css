@@ -1,0 +1,100 @@
+/*
+  ╭────────────┬───╮
+  │ Select     │ ▼ │
+  ╰────────────┴───╯
+
+  SELECT CSS STYLE
+
+  in HTML:
+    <div class="css-select-wrapper" >
+      <select class="css-select"></select>
+    </div>
+*/
+
+:root {
+  /* SIZE */
+  --css-select-height: 23px;
+  --css-select-width: 120px;
+  --css-select-border-radius: 4px;
+  --css-select-right-section-width: 25px;
+  --css-select-right-section-arrow-width: 7.5px;
+  --css-select-right-section-arrow-height: 5px;
+
+  /* COLORS */
+  --css-select-font-color: #cccccc;
+  --css-select-border: 1px solid #3e3e3e;
+  --css-select-background-color: #262626;
+  --css-select-right-section-background-color: #2a2a2a;
+  --css-select-right-section-arrow-background-color: #999;
+}
+
+
+/* CONTAINER element */
+.css-select-wrapper {
+  position: relative;
+  width: var(--css-select-width);
+
+  /* TYPO */
+  color: var(--css-select-font-color);
+}
+
+/* SELECT element */
+.css-select {
+  appearance: none;
+  cursor: pointer;
+
+  /* SIZE */
+  height: var(--css-select-height);
+  width: 100%;
+  border-radius: var(--css-select-border-radius);
+  padding-left: 8px;
+
+  /* COLOR */
+  background-color: var(--css-select-background-color);
+  border: var(--css-select-border);
+
+  /* TYPO */
+  font-size: 12px;
+  color: inherit;
+}
+
+/* ARROW */
+.css-select-wrapper::after {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none; /* Clicks pass through */
+
+  /* SIZE */
+  height: var(--css-select-height);
+  top: calc(var(--css-select-height)/2 - var(--css-select-right-section-arrow-height)/2);
+
+  /* ARROW STYLE*/
+  content: '';
+  right: calc(var(--css-select-right-section-width)/2 - var(--css-select-right-section-arrow-width)/2 + 0.5px);
+  border-style: solid;
+  border-width: var(--css-select-right-section-arrow-height) calc(var(--css-select-right-section-arrow-width)/2) 0 calc(var(--css-select-right-section-arrow-width)/2);
+  border-color: var(--css-select-right-section-arrow-background-color) transparent transparent transparent;
+}
+
+/* RIGHT SECTION */
+.css-select-wrapper::before {
+  position: absolute;
+  pointer-events: none; /* Clicks pass through */
+
+  /* SIZE */
+  width: var(--css-select-right-section-width);
+  height: var(--css-select-height);
+  right: 0;
+  top: 0;
+
+  /* STYLE */
+  content: '';
+  background-color: var(--css-select-right-section-background-color);
+  border-radius: 0 var(--css-select-border-radius) var(--css-select-border-radius) 0;
+  border: var(--css-select-border);
+}
+
+/* Style for when the select box is focused (optional) */
+.css-select:focus {
+  outline: none;
+}

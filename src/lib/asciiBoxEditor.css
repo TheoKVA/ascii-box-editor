@@ -1,0 +1,167 @@
+
+/* =========== */
+/*   IMPORTS   */
+/* =========== */
+
+@font-face {
+    /* Based on VS CODE font */
+    font-family: 'Menlo';
+    src:  url('src/Menlo-Regular.woff') format('woff2');
+}
+
+
+/* ==================== */
+/*   GLOBAL VARIABLES   */
+/* ==================== */
+
+:root {
+    --ascii-container-background-color: #434343;
+    --ascii-table-background-color: #1f1f1f;
+    --ascii-table-border-color: #2d2d2d7f;
+    --ascii-table-font-color: #ffffff;
+    --ascii-table-hoover: #4f7effbe;
+    --ascii-table-selected: #4f7eff5f;
+    --ascii-table-writing: #4f7fff;
+    --ascii-table-font: 'Menlo';
+}
+
+
+
+/* ============= */
+/*   CONTAINER   */
+/* ============= */
+
+#css-ascii-container {
+    /* JS variable */
+    --ascii-container-x: 0px;
+    --ascii-container-y: 0px;
+    --ascii-container-scale: 2;
+
+    /* Positon */
+    position: relative;
+    top: calc(50% - var(--ascii-container-y));
+    left: calc(50% - var(--ascii-container-x));
+    transform: scale(var(--ascii-container-scale)) translate(-50%, -50%) ; /* (Scale 2) INITIAL SCALE */
+    transform-origin: 0 0;
+
+    /* Color */
+    background-color: var(--ascii-container-background-color);
+}
+
+
+/* ============= */
+/*   WORKSPACE   */
+/* ============= */
+
+#css-ascii-workspace-ui {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    border: calc(1px/var(--ascii-container-scale)) solid #4f7fff;
+}
+#css-ascii-workspace-ui.active {
+    display: block;
+}
+.css-ascii-handle {
+    position: absolute;
+    width: calc(10px/var(--ascii-container-scale));
+    height: calc(10px/var(--ascii-container-scale));
+    background-color: rgb(207, 207, 207);
+    border: calc(1px/var(--ascii-container-scale)) solid #4f7fff;
+}
+
+
+/* ============ */
+/*   MOVEMENT   */
+/* ============ */
+
+#css-ascii-movement {
+    display: none ;
+    position: absolute;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+#css-ascii-movement.active {
+    display: block;
+}
+
+
+
+/* ============== */
+/*   TABLE ELEM   */
+/* ============== */
+
+#css-ascii-table {
+    /* Typo */
+    font-family: var(--ascii-table-font), monospace;
+    font-weight: 400;
+    font-size: 9.3px; /* based on VS CODE ratio */
+    text-align:center;
+    color: var(--ascii-table-font-color);
+    background-color: var(--ascii-table-background-color);
+}
+#css-ascii-table td{
+    height: 14px; /* based on VS CODE ratio */
+    width: 5.62px; /* based on VS CODE ratio */
+    max-width: 5.62px; /* based on VS CODE ratio */
+    border: calc(1px/var(--ascii-container-scale)) solid var(--ascii-table-border-color);
+}
+#css-ascii-table td:hover:not(.writing){
+    background-color: var(--ascii-table-hoover);
+} #css-ascii-table .selected{
+    background-color: var(--ascii-table-selected);
+} #css-ascii-table .writing{
+    background-color: var(--ascii-table-writing);
+}
+
+
+/* ============== */
+/*   SELECT OUT   */
+/* ============== */
+
+#css-ascii-select-out {
+    /* display: none ; */
+    position: absolute;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+}
+
+
+
+/* =============== */
+/*   CURSOR ELEM   */
+/* =============== */
+
+.css-ascii-crosshair:hover {
+    cursor: crosshair;
+}
+.css-ascii-nesw-resize {
+    cursor: nesw-resize;
+}
+.css-ascii-nwse-resize {
+    cursor: nwse-resize;
+}
+.css-ascii-ns-resize {
+    cursor: ns-resize;
+}
+.css-ascii-ew-resize {
+    cursor: ew-resize;
+}
+.css-ascii-grab {
+    cursor:grab;
+}
+.css-ascii-grabbing {
+    cursor:grabbing;
+}
+.css-ascii-text {
+    cursor:text;
+}

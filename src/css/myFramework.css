@@ -1,0 +1,106 @@
+/* 
+    === =================== ===
+    --- MY CUSTOM FRAMEWORK ---
+    === =================== ===
+
+    A collection of custom classes, to be called directly in the HTML
+    My own Tailwind-style framework. Import as is. Use with love.
+
+    Coded with ♥ by Theo Francart
+*/
+
+
+/* =========== */
+/* BASIC RESET */
+/* =========== */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box; /* To make sure padding doesn't increase the overall width */
+	border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+body {
+    transform: scale(1);
+    transform-origin: 0 0;
+}
+
+
+/* ==================== */
+/* CUSTOM CSS FRAMEWORK */
+/* ==================== */
+
+.temp {
+    border: solid green 1px;
+}
+.no-click { 
+    pointer-events: none;
+}
+.no-select {
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select: none;
+}
+.pending {
+    opacity:0.3 !important;
+    pointer-events: none;
+}
+.full-width {
+    width: 100%;
+}
+.full-height {
+    height: 100%;
+}
+.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+.no-decoration { 
+    text-decoration: none; 
+}
+.hidden {
+    display: none;
+}
+
+
+/* GUIDE TO FLEX : https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+.flex-row {
+    display: flex;
+    flex-direction: row ;
+    align-items: stretch;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column ;
+    align-items: stretch;
+}
+.flex {
+    display: flex;
+    align-items: stretch;
+}
+
+
+/* SEPARATEURS */
+.css-separateur {
+    border-left: solid #212529 1.5px;
+    height: 100%;
+    width: 0%;
+}
+.css-separateur-horizontal {
+    border-bottom: solid #212529 1px;
+    width: 100%;
+}
