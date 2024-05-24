@@ -6,8 +6,8 @@
 
 // Has to be called 'db'
 const db = new asciiBox({
-    width: 40,
-    height: 10,
+    width: 60,
+    height: 15,
     scale: 2,
     container: document.getElementById('css-content'),
     tools: {
