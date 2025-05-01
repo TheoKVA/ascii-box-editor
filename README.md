@@ -1,4 +1,8 @@
 # ASCII BOX EDITOR
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Project Status](https://img.shields.io/badge/status-active-brightgreen)
+[![View on GitHub Pages](https://img.shields.io/badge/Try%20it%20Live-ascii--box--editor-blue)](https://TheoKVA.github.io/ascii-box-editor/)
+[![Made with Love in Switzerland](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F-Switzerland-red.svg)](https://github.com/TheoKVA/)
 
 ![preview](docs/PREVIEW.png)
 
@@ -134,18 +138,20 @@ To get started with ASCII BOX EDITOR, go to the [url](https://theokva.github.io/
 
 ## Authors and acknowledgment
 
-Project developped and coded by **Theo Francart**.
+- Coded with Vanilla JS, HTML, and CSS
+- Built with ❤️ by Theo Francart
 
 <a name="licence"></a>
 
 ## License
-ASCII BOX EDITOR is free software under the GNU General Public License, version 3 (GPLv3).
+
+MIT License — use freely and fork responsibly.
 
 <a name="status"></a>
 
 ## Project status
 
-ASCII BOX EDITOR is currently in a maintenance phase. I am actively engaged in identifying and resolving bugs to enhance stability and performance. Efforts are also underway to optimize the codebase for better efficiency and user experience. If you encounter any issues or bugs, please feel free to open a bug report on GitHub. 
+ASCII BOX EDITOR is currently in a maintenance phase. If you encounter any issues or bugs, please feel free to open a bug report on GitHub. 
 <br>Your contributions and feedback are highly appreciated to help improve the tool further.
 
 🙏
