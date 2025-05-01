@@ -146,7 +146,7 @@ To get started with ASCII BOX EDITOR, go to the [url](https://theokva.github.io/
 ## License
 
 This project is licensed under the GNU General Public License v3.0.
-You are free to use, study, share, and modify the software — as long as you keep it open and share alike.
+<br>You are free to use, study, share, and modify the software — as long as you keep it open and share alike.
 
 <a name="status"></a>
 
