@@ -1,5 +1,5 @@
 # ASCII BOX EDITOR
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-gpl--3.0-yellow.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen)
 [![View on GitHub Pages](https://img.shields.io/badge/Try%20it%20Live-ascii--box--editor-blue)](https://TheoKVA.github.io/ascii-box-editor/)
 [![Made with Love in Switzerland](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F-Switzerland-red.svg)](https://github.com/TheoKVA/)
@@ -145,7 +145,8 @@ To get started with ASCII BOX EDITOR, go to the [url](https://theokva.github.io/
 
 ## License
 
-MIT License — use freely and fork responsibly.
+This project is licensed under the GNU General Public License v3.0.
+You are free to use, study, share, and modify the software — as long as you keep it open and share alike.
 
 <a name="status"></a>
 
