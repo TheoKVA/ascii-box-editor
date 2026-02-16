@@ -175,7 +175,15 @@ document.addEventListener('keydown', (event) => {
         event.preventDefault();
         db.selectAll();
     } 
-
+    // XX  'key' is upcasing of event.key !?
+    else if ((event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+        //console.log("Arrow Key pressed: ", event.key);
+        if (db.selection && db.selection.adresses && db.selection.adresses.length > 0 &&
+                ! cmdOrCtrl && !shiftKey) {
+            const dir = event.key.replace('Arrow', '');
+            db.moveSelectionByOne(dir);
+        }
+    }
 
     // === DEBUG ===
 
