@@ -1,6 +1,6 @@
 # ASCII BOX EDITOR
 [![License: MIT](https://img.shields.io/badge/License-gpl--3.0-yellow.svg)](https://www.gnu.org/licenses/gpl-3.0)
-![Project Status](https://img.shields.io/badge/status-active-brightgreen)
+![Project Status](https://img.shields.io/badge/status-maintenance-yellow)
 [![View on GitHub Pages](https://img.shields.io/badge/Try%20it%20Live-ascii--box--editor-blue)](https://TheoKVA.github.io/ascii-box-editor/)
 [![Made with Love in Switzerland](https://img.shields.io/badge/Made%20with%20%E2%9D%A4%EF%B8%8F-Switzerland-red.svg)](https://github.com/TheoKVA/)
 
@@ -152,7 +152,11 @@ This project is licensed under the GNU General Public License v3.0.
 
 ## Project status
 
-ASCII BOX EDITOR is currently in a maintenance phase. If you encounter any issues or bugs, please feel free to open a bug report on GitHub. 
-<br>Your contributions and feedback are highly appreciated to help improve the tool further.
+ASCII BOX EDITOR is currently in **maintenance mode**.
+<br>Bug reports are welcome, and small, focused improvements may be accepted.
+<br>Large refactors or new features are unlikely.
+
+Feel free to fork the project if you’d like to explore new ideas.
 
 🙏
+
