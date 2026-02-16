@@ -833,6 +833,20 @@ class asciiBox_ToolManager {
 
     // Initiate the style containers HTML content
     setStyleContainer(styleContainer) {
+        const updateRoundedAnglesAvailability = () => {
+            if (!styleContainer || !styleContainer.body || !styleContainer.roundedAngles) return;
+
+            const selectedOption = styleContainer.body.options[styleContainer.body.selectedIndex];
+            const styleText = (selectedOption && selectedOption.textContent ? selectedOption.textContent : '').trim();
+            const shouldDisable = styleText.includes('Double') || styleText.includes('Bold');
+
+            styleContainer.roundedAngles.disabled = shouldDisable;
+            if (shouldDisable) {
+                styleContainer.roundedAngles.checked = false;
+                db.toolManager.style.roundedAngles = false;
+            }
+        };
+
         if(styleContainer.body) {
             const optionsBody = [
                 { value: "1", text: "─ Normal" },
@@ -854,7 +868,9 @@ class asciiBox_ToolManager {
             });
             styleContainer.body.addEventListener('change', function() {
                 db.toolManager.style.body = parseInt(this.value);
+                updateRoundedAnglesAvailability();
             });
+            updateRoundedAnglesAvailability();
         }
         if(styleContainer.tail) {
             const optionsBody = [
@@ -898,6 +914,7 @@ class asciiBox_ToolManager {
         }
         if(styleContainer.roundedAngles) {
             styleContainer.roundedAngles.addEventListener('change', function() {
+                if (this.disabled) return;
                 db.toolManager.style.roundedAngles = this.checked;
             });
         }
