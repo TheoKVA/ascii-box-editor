@@ -5,8 +5,8 @@
 
 @font-face {
     /* Based on VS CODE font */
-    font-family: 'Menlo';
-    src:  url('src/Menlo-Regular.woff') format('woff2');
+    font-family: "monospace";  /* 'Menlo'; */
+    /* src:  url('src/Menlo-Regular.woff') format('woff2'); */
 }
 
 
@@ -22,7 +22,7 @@
     --ascii-table-hoover: #4f7effbe;
     --ascii-table-selected: #4f7eff5f;
     --ascii-table-writing: #4f7fff;
-    --ascii-table-font: 'Menlo';
+    --ascii-table-font: 'monospace';
 }
 
 
