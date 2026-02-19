@@ -755,27 +755,27 @@ class asciiBox {
         // }
 
         // Si on est en début de ligne
-        if (y==this.width-1) {
-            this.world[x][y].innerHTML = ' ';
-            this.db[x][y] = ' ';
-        }
-        // Move left unless we're at the start of a line
-        if (y > 0) {
-            console.log('we move left', x, y);
-            this.world[x][y].classList.remove('writing');
-            y--;
-            this.world[x][y].classList.add('writing');
-        } else if (x > 0) {
-            // If at the start of a line, move up to the end of the previous line
-            this.world[x][y].classList.remove('writing');
-            x--;
-            y = this.width - 1; // Move to the end of the previous line
-            this.world[x][y].classList.add('writing');
-        }
-        this.textInputPosition.current = [x, y];
-        console.log('we are now at', this.textInputPosition.current);
-        this.world[x][y].innerHTML = ' ';
-        this.db[x][y] = ' ';
+        //if (y==this.width-1) {
+        //    this.world[x][y].innerHTML = ' ';
+        //    this.db[x][y] = ' ';
+        //}
+        //// Move left unless we're at the start of a line
+        //if (y > 0) {
+        //    console.log('we move left', x, y);
+        //    this.world[x][y].classList.remove('writing');
+        //    y--;
+        //    this.world[x][y].classList.add('writing');
+        //} else if (x > 0) {
+        //    // If at the start of a line, move up to the end of the previous line
+        //    this.world[x][y].classList.remove('writing');
+        //    x--;
+        //    y = this.width - 1; // Move to the end of the previous line
+        //    this.world[x][y].classList.add('writing');
+        //}
+        //this.textInputPosition.current = [x, y];
+        //console.log('we are now at', this.textInputPosition.current);
+        //this.world[x][y].innerHTML = ' ';
+        //this.db[x][y] = ' ';
     }
 
     // == COPY PASTE COMMANDS ==
