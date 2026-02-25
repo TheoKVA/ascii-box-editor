@@ -73,3 +73,9 @@ input:checked + .css-toggle-slider:before {
     transform: translateX( calc( var(--css-toggle-width) - var(--css-toggle-height)) );
     background-color: var(--css-toggle-color-toggle-on);
 }
+
+/* Disabled state */
+.css-toggle input:disabled + .css-toggle-slider {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

@@ -88,7 +88,7 @@ body > * {
     /* border: 5px solid #262626; */
 }
 .toolbar-icon.active {
-    background-color: #202020;
+    background-color: #151515;
     /* border: 5px solid #262626; */
 }
 .toolbar-info:not(.active) {

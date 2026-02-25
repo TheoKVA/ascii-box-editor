@@ -444,6 +444,141 @@ class asciiBox {
         this.selectTo([this.height-1,this.width-1]);
     }
 
+    /**
+     * Move the currently selected rectangle by one cell in the given direction.
+     * Direction must be one of: 'Up' | 'Down' | 'Left' | 'Right'
+     *
+     * Overwrites destination cells. Leaves a blank strip behind, except when
+     * moving would "split" a horizontal/vertical line-style character; in that case,
+     * the vacated cell is repaired by copying the character into the gap.
+     */
+    moveSelectionByOne(direction) {
+        if (!this.selection || !this.selection.adresses || this.selection.adresses.length === 0) return false;
+        if (!this.selection.start || !this.selection.end) return false;
+
+        const A = copyArray(this.selection.start);
+        const B = copyArray(this.selection.end);
+        const minX = Math.min(A[0], B[0]);
+        const maxX = Math.max(A[0], B[0]);
+        const minY = Math.min(A[1], B[1]);
+        const maxY = Math.max(A[1], B[1]);
+
+        let dx = 0, dy = 0;
+        if (direction === 'Up') dx = -1;
+        else if (direction === 'Down') dx = 1;
+        else if (direction === 'Left') dy = -1;
+        else if (direction === 'Right') dy = 1;
+        else return false;
+
+        // Abort if the move would push any part of the selection out of bounds.
+        if (minX + dx < 0 || maxX + dx >= this.height || minY + dy < 0 || maxY + dy >= this.width) {
+            return false;
+        }
+
+        const old = this.db.map(row => row.slice());
+
+        const inRect = (x, y) => x >= minX && x <= maxX && y >= minY && y <= maxY;
+
+        const isLineStyleChar = (ch) => {
+            const code = this.rosetta.getCodeFromChar(ch);
+            if (!code) return false;
+            // Exclude non-line glyphs (e.g., arrow codes 10/11) by requiring a "line strength" in 1..9
+            return code.slice(0, 4).some(v => v > 0 && v < 10);
+        };
+
+        const shouldRepairTrailingGap = (x, y) => {
+            const ch = old[x][y];
+            if (!isLineStyleChar(ch)) return false;
+
+            const code = this.rosetta.getCodeFromChar(ch);
+            if (!code) return false;
+
+            // Only repair when the glyph is a straight segment along the moved axis.
+            if (dy !== 0) {
+                // Horizontal move: require both left and right connections.
+                if (!(code[1] > 0 && code[3] > 0)) return false;
+            } else if (dx !== 0) {
+                // Vertical move: require both up and down connections.
+                if (!(code[0] > 0 && code[2] > 0)) return false;
+            }
+
+            // Trailing neighbor (opposite the move direction) must be outside the moving rectangle
+            // and must connect into this cell in the axis being repaired.
+            const tx = x - dx;
+            const ty = y - dy;
+            if (tx < 0 || tx >= this.height || ty < 0 || ty >= this.width) return false;
+            if (inRect(tx, ty)) return false;
+
+            const tCh = old[tx][ty];
+            const tCode = this.rosetta.getCodeFromChar(tCh);
+            if (!tCode) return false;
+
+            if (dy === 1) {
+                // Moving Right, trailing is Left: neighbor must connect right, and glyph must connect left.
+                return (tCode[1] > 0 && tCode[1] < 10) && (code[3] > 0 && code[3] < 10);
+            }
+            if (dy === -1) {
+                // Moving Left, trailing is Right
+                return (tCode[3] > 0 && tCode[3] < 10) && (code[1] > 0 && code[1] < 10);
+            }
+            if (dx === 1) {
+                // Moving Down, trailing is Up
+                return (tCode[2] > 0 && tCode[2] < 10) && (code[0] > 0 && code[0] < 10);
+            }
+            if (dx === -1) {
+                // Moving Up, trailing is Down
+                return (tCode[0] > 0 && tCode[0] < 10) && (code[2] > 0 && code[2] < 10);
+            }
+            return false;
+        };
+
+        // Move selection contents (overwrite destination).
+        for (let x = minX; x <= maxX; x++) {
+            for (let y = minY; y <= maxY; y++) {
+                this.db[x + dx][y + dy] = old[x][y];
+            }
+        }
+
+        // Blank the trailing strip; then repair gaps for split straight-line glyphs.
+        if (dy === 1) {
+            // Right: blank leftmost column
+            for (let x = minX; x <= maxX; x++) {
+                this.db[x][minY] = ' ';
+                if (shouldRepairTrailingGap(x, minY)) this.db[x][minY] = old[x][minY];
+            }
+        } else if (dy === -1) {
+            // Left: blank rightmost column
+            for (let x = minX; x <= maxX; x++) {
+                this.db[x][maxY] = ' ';
+                if (shouldRepairTrailingGap(x, maxY)) this.db[x][maxY] = old[x][maxY];
+            }
+        } else if (dx === 1) {
+            // Down: blank top row
+            for (let y = minY; y <= maxY; y++) {
+                this.db[minX][y] = ' ';
+                if (shouldRepairTrailingGap(minX, y)) this.db[minX][y] = old[minX][y];
+            }
+        } else if (dx === -1) {
+            // Up: blank bottom row
+            for (let y = minY; y <= maxY; y++) {
+                this.db[maxX][y] = ' ';
+                if (shouldRepairTrailingGap(maxX, y)) this.db[maxX][y] = old[maxX][y];
+            }
+        }
+
+        // Update selection to new position and refresh UI.
+        const newStart = [A[0] + dx, A[1] + dy];
+        const newEnd = [B[0] + dx, B[1] + dy];
+        this.selectStart(newStart);
+        this.selectTo(newEnd);
+
+        this.updateWorld();
+        this.saveToHistory();
+        return true;
+    }
+
+
+
     // == TEXT INPUT ==
     createTextInput() {
         const hiddenInput = document.createElement('textarea');
@@ -467,6 +602,7 @@ class asciiBox {
                 event.preventDefault();
                 thisContainer.textInputRemove();
             }
+
             if (event.key === 'ArrowUp') {
                 thisContainer.textInputMove('Up');
             }
@@ -619,27 +755,27 @@ class asciiBox {
         // }
 
         // Si on est en début de ligne
-        if (y==this.width-1) {
-            this.world[x][y].innerHTML = ' ';
-            this.db[x][y] = ' ';
-        }
-        // Move left unless we're at the start of a line
-        if (y > 0) {
-            console.log('we move left', x, y);
-            this.world[x][y].classList.remove('writing');
-            y--;
-            this.world[x][y].classList.add('writing');
-        } else if (x > 0) {
-            // If at the start of a line, move up to the end of the previous line
-            this.world[x][y].classList.remove('writing');
-            x--;
-            y = this.width - 1; // Move to the end of the previous line
-            this.world[x][y].classList.add('writing');
-        }
-        this.textInputPosition.current = [x, y];
-        console.log('we are now at', this.textInputPosition.current);
-        this.world[x][y].innerHTML = ' ';
-        this.db[x][y] = ' ';
+        //if (y==this.width-1) {
+        //    this.world[x][y].innerHTML = ' ';
+        //    this.db[x][y] = ' ';
+        //}
+        //// Move left unless we're at the start of a line
+        //if (y > 0) {
+        //    console.log('we move left', x, y);
+        //    this.world[x][y].classList.remove('writing');
+        //    y--;
+        //    this.world[x][y].classList.add('writing');
+        //} else if (x > 0) {
+        //    // If at the start of a line, move up to the end of the previous line
+        //    this.world[x][y].classList.remove('writing');
+        //    x--;
+        //    y = this.width - 1; // Move to the end of the previous line
+        //    this.world[x][y].classList.add('writing');
+        //}
+        //this.textInputPosition.current = [x, y];
+        //console.log('we are now at', this.textInputPosition.current);
+        //this.world[x][y].innerHTML = ' ';
+        //this.db[x][y] = ' ';
     }
 
     // == COPY PASTE COMMANDS ==
@@ -833,6 +969,20 @@ class asciiBox_ToolManager {
 
     // Initiate the style containers HTML content
     setStyleContainer(styleContainer) {
+        const updateRoundedAnglesAvailability = () => {
+            if (!styleContainer || !styleContainer.body || !styleContainer.roundedAngles) return;
+
+            const selectedOption = styleContainer.body.options[styleContainer.body.selectedIndex];
+            const styleText = (selectedOption && selectedOption.textContent ? selectedOption.textContent : '').trim();
+            const shouldDisable = styleText.includes('Double') || styleText.includes('Bold');
+
+            styleContainer.roundedAngles.disabled = shouldDisable;
+            if (shouldDisable) {
+                styleContainer.roundedAngles.checked = false;
+                db.toolManager.style.roundedAngles = false;
+            }
+        };
+
         if(styleContainer.body) {
             const optionsBody = [
                 { value: "1", text: "─ Normal" },
@@ -854,7 +1004,9 @@ class asciiBox_ToolManager {
             });
             styleContainer.body.addEventListener('change', function() {
                 db.toolManager.style.body = parseInt(this.value);
+                updateRoundedAnglesAvailability();
             });
+            updateRoundedAnglesAvailability();
         }
         if(styleContainer.tail) {
             const optionsBody = [
@@ -898,6 +1050,7 @@ class asciiBox_ToolManager {
         }
         if(styleContainer.roundedAngles) {
             styleContainer.roundedAngles.addEventListener('change', function() {
+                if (this.disabled) return;
                 db.toolManager.style.roundedAngles = this.checked;
             });
         }
@@ -988,8 +1141,11 @@ class asciiBox_Select extends asciiBox_Tool {
         this.isSet=false;
     }
     onSetTool() {
+        // console.log('asciiBox_Select.onSetTool()');
     }
-
+    onSetOffTool() {
+        // console.log('asciiBox_Select.onSetOffTool()');
+    }
     onDoubleClick(args) {
         // console.log('DOUBLE CLICK', args);
         this.manager.db.textInputFocusIn(args);
@@ -1010,6 +1166,7 @@ class asciiBox_Select extends asciiBox_Tool {
 
     onMouseUp(args) {
         if (!this.isActive) return;
+        // console.log('asciiBox_Select.onMouseUp()');
         this.manager.db.selectTo(args);
         // if (args[0]==this.positionStart[0] && args[1]==this.positionStart[1]) db.textInputFocusIn(args);
         this.deactivate();
